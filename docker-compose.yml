@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_HOST=postgres
+    volumes:
+      - ./config:/app/config
+    networks:
+      - weather-net
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: weather
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./platform/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - weather-net
+
+volumes:
+  postgres-data:
+
+networks:
+  weather-net:
+    driver: bridge

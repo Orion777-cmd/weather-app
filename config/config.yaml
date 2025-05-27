@@ -1,0 +1,7 @@
+debug: true
+database:
+  url: postgresql://postgres:secret@postgres:5432/weather?sslmode=disable
+server:
+  port: 8080
+visualcrossing:
+  base_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%s/%s?key=MAF6M4LQ43NCG7GH995NN57BV

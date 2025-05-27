@@ -20,9 +20,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: weather
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./platform/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    
     networks:
       - weather-net
 

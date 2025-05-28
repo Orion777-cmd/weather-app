@@ -7,8 +7,8 @@ import (
 
 type Persistence struct {}
 
-func InitPersistence(db *pgx.Conn, logger *zap.Logger) *Persistence {
+func InitPersistence(db *pgx.Conn, logger *zap.Logger) Persistence {
 	
 	logger.Info("Persistence layer initialized")
-	return &Persistence{}
+	return Persistence{}
 }

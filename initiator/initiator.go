@@ -4,10 +4,12 @@ import (
 	"log"
 
 	"github.com/Orion777-cmd/weather-app/internal/handler"
+	"github.com/Orion777-cmd/weather-app/internal/repository"
 	"github.com/Orion777-cmd/weather-app/platform/openWeatherMap"
+	dbpkg "github.com/Orion777-cmd/weather-app/internal/db"
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"github.com/gin-gonic/gin"
 )
 
 func Init() {
@@ -34,6 +36,10 @@ func Init() {
 	persistence := InitPersistence(db, logger)
 	logger.Info("Persistence layer initialized")
 
+	// initializing database repository
+	sqlcQueries := dbpkg.New(db)
+	weatherRepo := repository.NewWeatherRepository(sqlcQueries)
+
 	//initializing platform layer
 	logger.Info("Initializing platform layer")
 	oneCallbaseUrl := viper.GetString("openweathermap.ONECALL_BASE_URL")
@@ -48,7 +54,7 @@ func Init() {
 
 	// initializing weather module
 	logger.Info("Initializing weather API client")
-	module := InitWeatherModule(persistence, weatherApi, logger)
+	module := InitWeatherModule(persistence, weatherApi, *weatherRepo, logger)
 
 	logger.Info("Weather API client initialized")
 

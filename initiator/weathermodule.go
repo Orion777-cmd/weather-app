@@ -2,6 +2,7 @@ package initiator
 
 import (
 	md "github.com/Orion777-cmd/weather-app/internal/module"
+	"github.com/Orion777-cmd/weather-app/internal/repository"
 	"github.com/Orion777-cmd/weather-app/platform"
 	"go.uber.org/zap"
 )
@@ -15,9 +16,9 @@ type module struct {
 }
 
 // InitWeatherModule initializes the weather module.
-func InitWeatherModule(_ Persistence, weatherAPI platform.WeatherAPI, logger *zap.Logger) module {
+func InitWeatherModule(_ Persistence, weatherAPI platform.WeatherAPI, weatherRepo repository.WeatherRepository, logger *zap.Logger) module {
 	logger.Info("Initializing weather module")
 	return module{
-		weatherModule: md.NewService(weatherAPI, logger),
+		weatherModule: md.NewService(weatherAPI,&weatherRepo, logger),
 	}
 }

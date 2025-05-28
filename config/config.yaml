@@ -1,8 +1,0 @@
-debug: true
-database:
-  url: postgresql://postgres:secret@postgres:5432/weather?sslmode=disable
-server:
-  port: 8080
-openweathermap:
-  GEOCODING_BASE_URL: http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=1&appid=4a545897302a6945b20be30b5e569fe4
-  ONECALL_BASE_URL: https://api.openweathermap.org/data/3.0/onecall?lat=%s&lon=%s&exclude=minutely,hourly,alerts&appid=4a545897302a6945b20be30b5e569fe4
